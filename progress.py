@@ -1,8 +1,8 @@
 import re
 from typing import Dict, List, Union
 
-import plugins.trpg.tool.checkTree as cT
-import plugins.trpg.tool.dice as dice
+import plugins.trpg.tools.checkTree as cT
+import plugins.trpg.tools.dice as dice
 from channel.chat_message import ChatMessage
 import plugins.trpg.model.character as character
 import plugins.trpg.model.user as user

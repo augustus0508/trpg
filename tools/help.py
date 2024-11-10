@@ -1,7 +1,7 @@
 
 
 def help_info():
-    return (".r[num1]d[num2] 执行num1次数值1-num2的掷骰\n"
+    return ("\n.r[num1]d[num2] 执行num1次数值1-num2的掷骰\n"
             ".r[num1]d[num2][h|l] 奖励骰，取最高得分，惩罚骰，取最低得分\n"
             ".ra [str] 对某属性进行判定\n"
             ".login [str]根据口令进行登录，可私聊\n"

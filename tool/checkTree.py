@@ -1,6 +1,9 @@
 import re
+from symbol import parameters
+
+
 class Method:
-    def __init__(self,state,method,parameters):
+    def __init__(self,state,method=True,parameters=()):
         self.state=state
         self.method=method
         self.parameters=parameters
@@ -29,19 +32,33 @@ def check_tree(parameters,node,node_son,node_bro):
 def check_char(context):
     parameters = context.split(' ')#.char add str/.char edit STR num/.char gen/.char use str
     parameters.append('#ok')
-    node =     [".char", "add", "edit", "use", "gen", 'STR', 'CON', 'SIZ', 'DEX', 'APP', 'INT', 'POW', 'KON','LUC','str','num']
-    node_son = [1,       -1,     5,     -1,     -1,   15,    15,    15,     15,    15,    15,   15,    15,    15,   -1,   -1]
-    node_bro = [-1,       2,     3,      4,     -1,    6,     7,     8,      9,    10,    11,   12,    13,    -1,   -1,   -1]
+    node =     [".char", "add", "edit", "use", "gen", 'STR', 'CON', 'SIZ', 'DEX', 'APP', 'INT', 'POW', 'KNO','LUC','str','num',"show"]
+    node_son = [1,       14,     5,     14,     -1,   15,    15,    15,     15,    15,    15,   15,    15,    15,   -1,   -1,   -1]
+    node_bro = [-1,       2,     3,      4,     16,    6,     7,     8,      9,    10,    11,   12,    13,    -1,   -1,   -1,   -1]
     p1,p2=check_tree(parameters,node,node_son,node_bro)
     if p2:
         if parameters[1]=='add':
-            return Method(True, parameters[1], (parameters[2]))
+            return Method(True, parameters[1], (parameters[2],))
         if parameters[1]=='edit':
             return Method(True, parameters[1], (parameters[2],int(parameters[3])))
         if parameters[1]=='use':
-            return Method(True, parameters[1], (parameters[2]))
+            return Method(True, parameters[1], (parameters[2],))
         if parameters[1]=='gen':
-            return Method(True, parameters[1], ())
+            return Method(True, parameters[1], None)
+        if parameters[1]=='show':
+            return Method(True, parameters[1], None)
+    else:
+        return Method(False, None,None)
+
+def check_ra(context):
+    parameters=context.split(' ')
+    parameters.append('#ok')
+    node=[".ra", 'str']
+    node_son=[1,-1]
+    node_bro=[-1,-1]
+    p1,p2=check_tree(parameters,node,node_son,node_bro)
+    if p2:
+        return Method(True, parameters[1], ())
     else:
         return Method(False, None,None)
 
@@ -60,5 +77,17 @@ def check_rd(context):
         parameters.insert(4, 100)
     if p2:
         return Method(True, parameters[-2], (int(parameters[2]), int(parameters[4])))
+    else:
+        return Method(False, None,None)
+
+def check_login(context):
+    parameters=context.split(' ')
+    parameters.append('#ok')
+    node=[".login", 'str']
+    node_son=[1,-1]
+    node_bro=[-1,-1]
+    p1,p2=check_tree(parameters,node,node_son,node_bro)
+    if p2:
+        return Method(True, parameters[1], ())
     else:
         return Method(False, None,None)

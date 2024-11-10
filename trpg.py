@@ -26,17 +26,32 @@ class Trpg(Plugin):
     def on_handle_context(self, e_context: EventContext):
         if e_context['context'].type != ContextType.TEXT:
             return
-        # todo 规定正则
+        # todo 拿到context
         # rd_regex = r'^\.r\d*d\d*( )*((-)( )*(h|l))?$'
-        rd_regex = r'^\.r'
-        char_regex = r'^\.char'
         context = e_context["context"].content
+        context = pg.zh_to_eng(context)
         # todo 编辑返回值
         msg= e_context['context']['msg']
         reply = Reply()
         reply.type = ReplyType.TEXT
+
+        # todo process
+        rd_regex = r'^\.r(\d)*d'
+        ra_regex = r'^\.ra'
+        char_regex = r'^\.char'
+        login_regex = r'^\.login'
+        register_regex = r'^\.register'
         if re.match(rd_regex, context):
-            reply.content=pg.rd_process(context,msg)
+            reply.content = pg.rd_process(context, msg)
+        if re.match(char_regex, context):
+            reply.content = pg.char_process(context, msg)
+        if re.match(ra_regex, context):
+            reply.content = pg.ra_process(context, msg)
+        if re.match(login_regex, context):
+            reply.content = pg.login_process(context, msg)
+        if re.match(register_regex, context):
+            reply.content = pg.register_process(context, msg)
+
         e_context['reply'] = reply
         e_context.action = EventAction.BREAK_PASS
         return

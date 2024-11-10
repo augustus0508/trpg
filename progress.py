@@ -3,6 +3,7 @@ from typing import Dict, List, Union
 
 import plugins.trpg.tools.checkTree as cT
 import plugins.trpg.tools.dice as dice
+import plugins.trpg.tools.help as help
 from channel.chat_message import ChatMessage
 import plugins.trpg.model.character as character
 import plugins.trpg.model.user as user
@@ -53,7 +54,6 @@ def rd_process(context, msg):
         reply_str += f"奖励骰:{str(dice_consequence2)}\n"
     elif method.method == "l":
         reply_str += f"惩罚骰:{str(dice_consequence2)}\n"
-    reply_str += f'{user_name}:'
     reply_str += f'{str(dice_consequence1)}'
     return reply_str
 
@@ -86,7 +86,6 @@ def ra_process(context, msg):
             reply_str += "未选定角色，默认骰:\n"
     else:
         reply_str+=f'{method.method}\n'
-    reply_str += f'{user_name}:'
     reply_str += f'{dice.generate_random_integers(1,100)}'
     return reply_str
 
@@ -171,3 +170,6 @@ def register_process(context, msg):
         user_id = msg.from_user_id
 
     return user.User.register(user_id)
+
+def help_process(context, msg):
+    return help.help_info()

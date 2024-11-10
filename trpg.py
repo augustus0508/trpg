@@ -4,8 +4,6 @@ import re
 import plugins
 from bridge.context import ContextType
 from bridge.reply import Reply, ReplyType
-from common.log import logger
-from config import conf
 from plugins import *
 import plugins.trpg.progress as pg
 
@@ -41,6 +39,7 @@ class Trpg(Plugin):
         char_regex = r'^\.char'
         login_regex = r'^\.login'
         register_regex = r'^\.register'
+        help_regex = r'^\.help'
         if re.match(rd_regex, context):
             reply.content = pg.rd_process(context, msg)
         if re.match(char_regex, context):
@@ -51,6 +50,8 @@ class Trpg(Plugin):
             reply.content = pg.login_process(context, msg)
         if re.match(register_regex, context):
             reply.content = pg.register_process(context, msg)
+        if re.match(help_regex, context):
+            reply.content = pg.help_process(context, msg)
 
         e_context['reply'] = reply
         e_context.action = EventAction.BREAK_PASS

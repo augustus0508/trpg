@@ -1,1 +1,1 @@
-#from .trpg import *
+from .trpg import *

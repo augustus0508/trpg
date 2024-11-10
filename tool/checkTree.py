@@ -1,6 +1,4 @@
 import re
-from symbol import parameters
-
 
 class Method:
     def __init__(self,state,method=True,parameters=()):

@@ -51,9 +51,9 @@ def rd_process(context, msg):
 
     reply_str = f'执行{method.parameters[0]}d{method.parameters[1]}\n'
     if method.method == "h":
-        reply_str += f"奖励骰:{str(dice_consequence2)}\n"
-    elif method.method == "l":
         reply_str += f"惩罚骰:{str(dice_consequence2)}\n"
+    elif method.method == "l":
+        reply_str += f"奖励骰:{str(dice_consequence2)}\n"
     reply_str += f'{str(dice_consequence1)}'
     return reply_str
 

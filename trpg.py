@@ -42,17 +42,20 @@ class Trpg(Plugin):
         help_regex = r'^\.help'
         if re.match(rd_regex, context):
             reply.content = pg.rd_process(context, msg)
-        if re.match(char_regex, context):
+        elif re.match(char_regex, context):
             reply.content = pg.char_process(context, msg)
-        if re.match(ra_regex, context):
+        elif re.match(ra_regex, context):
             reply.content = pg.ra_process(context, msg)
-        if re.match(login_regex, context):
+        elif re.match(login_regex, context):
             reply.content = pg.login_process(context, msg)
-        if re.match(register_regex, context):
+        elif re.match(register_regex, context):
             reply.content = pg.register_process(context, msg)
-        if re.match(help_regex, context):
+        elif re.match(help_regex, context):
             reply.content = pg.help_process(context, msg)
-
+        else:
+            e_context['reply'] = reply
+            e_context.action = EventAction.CONTINUE
+            return
         e_context['reply'] = reply
         e_context.action = EventAction.BREAK_PASS
         return

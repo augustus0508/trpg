@@ -20,7 +20,7 @@ def generate_random_string(length):
     return password
 
 class User:
-    idPassword: Dict[str,str]={}
+    idPassword: Dict[str,str]={}#表示微信id到login_id的变化
     def __init__(self):
         return
     @classmethod

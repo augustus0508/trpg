@@ -88,20 +88,27 @@ most_unlucky=[
 
 def return_joke(expect,limit):
     expect=expect[0]
-    temp=random.randint(0,9)
     if expect == 1:
+        temp = random.randint(0, len(luckiest)-1)
         return luckiest[temp]
     elif expect == 100:
+        temp = random.randint(0, len(most_unlucky) - 1)
         return most_unlucky[temp]
     elif expect >=limit:
+        temp = random.randint(0, len(very_unlucky) - 1)
         return very_unlucky[temp]
     elif expect*2==limit:
+        temp = random.randint(0, len(normal) - 1)
         return normal[temp]
     elif expect*4<=limit:
+        temp = random.randint(0, len(very_lucky) - 1)
         return very_lucky[temp]
     elif expect*2<limit:
+        temp = random.randint(0, len(lucky) - 1)
         return lucky[temp]
     elif expect*4>=limit*3:
+        temp = random.randint(0, len(very_unlucky) - 1)
         return very_unlucky[temp]
     else:
+        temp = random.randint(0, len(unlucky) - 1)
         return unlucky[temp]

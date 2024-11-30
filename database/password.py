@@ -1,9 +1,10 @@
 import sqlite3
+from plugins.trpg.database import sql_url
 
 
 def load_user(password):
     # 连接数据库
-    conn = sqlite3.connect('plugins/trpg/database/Trpg.db')
+    conn = sqlite3.connect(sql_url)
     cursor = conn.cursor()
     # 执行查询
     cursor.execute('SELECT * FROM passwordid WHERE password = ?', (password,))
@@ -13,7 +14,7 @@ def load_user(password):
     return result
 
 def add_user(password,id):
-    conn = sqlite3.connect('plugins/trpg/database/Trpg.db')
+    conn = sqlite3.connect(sql_url)
     cursor = conn.cursor()
     # 执行查询
     try:
@@ -26,7 +27,7 @@ def add_user(password,id):
     return
 
 def update_user(password,id):
-    conn = sqlite3.connect('plugins/trpg/database/Trpg.db')
+    conn = sqlite3.connect(sql_url)
     cursor = conn.cursor()
     # 执行查询
     cursor.execute("UPDATE passwordid SET id = ? WHERE password = ?", (password, id))

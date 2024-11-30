@@ -1,5 +1,8 @@
 import sqlite3
 
+from plugins.trpg.database import sql_url
+
+
 def insert_into_usertochar(name, owner, str, con, siz, dex, app, int, pow, kon, luc):
     """
     将数据插入到 userTochar 表中。
@@ -17,7 +20,7 @@ def insert_into_usertochar(name, owner, str, con, siz, dex, app, int, pow, kon, 
         kon: KNO 属性
         luc: LUC 属性
     """
-    conn = sqlite3.connect('plugins/trpg/database/Trpg.db')
+    conn = sqlite3.connect(sql_url)
     cursor = conn.cursor()
     sql = "SELECT name FROM userChar WHERE owner = ?"
     results = cursor.execute(sql, (owner,)).fetchall()
@@ -51,7 +54,7 @@ def update_user_attribute(name, owner, attribute, new_value):
     Raises:
         ValueError: 如果属性名无效或数据类型不匹配
     """
-    conn = sqlite3.connect('plugins/trpg/database/Trpg.db')
+    conn = sqlite3.connect(sql_url)
     # 校验属性名
     valid_attributes = ('STR', 'CON', 'SIZ', 'DEX', 'APP', 'INT', 'POW', 'KNO', 'LUC')
     if attribute not in valid_attributes:
@@ -69,7 +72,7 @@ def query_by_owner(owner):
     根据owner查拥有角色
 
     """
-    conn = sqlite3.connect('plugins/trpg/database/Trpg.db')
+    conn = sqlite3.connect(sql_url)
     cursor = conn.cursor()
     sql = "SELECT name FROM userChar WHERE owner = ?"
     results = cursor.execute(sql, (owner,)).fetchall()
@@ -88,7 +91,7 @@ def query_by_owner_and_user(name ,owner):
     Returns:
         查询结果列表，每个元素是一个元组，表示一条记录。
     """
-    conn = sqlite3.connect('plugins/trpg/database/Trpg.db')
+    conn = sqlite3.connect(sql_url)
     cursor = conn.cursor()
     sql = "SELECT name,owner,STR,CON,SIZ,DEX,APP,INT,POW,KNO,LUC FROM userChar WHERE owner = ? AND name = ?"
     results = cursor.execute(sql, (owner, name)).fetchall()

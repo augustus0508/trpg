@@ -77,7 +77,7 @@ def query_by_owner(owner):
     sql = "SELECT name FROM userChar WHERE owner = ?"
     results = cursor.execute(sql, (owner,)).fetchall()
     conn.close()
-    return [i[0] for i in results]
+    return results
 
 def query_by_owner_and_user(name ,owner):
     """

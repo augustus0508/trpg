@@ -1,8 +1,8 @@
 from typing import Dict, List, Union
 import random
 import string
-import plugins.trpg.database.password as pw
-from plugins.trpg.database.password import update_user
+import plugins.trpg.database.user as pw
+from plugins.trpg.database.user import update_user
 
 
 def generate_random_string(length):

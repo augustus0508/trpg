@@ -2,7 +2,7 @@ import random
 
 from web import database
 
-import plugins.trpg.database.player as player
+import plugins.trpg.database.character as player
 
 class Character:
     attribute_names = ["STR", "CON", "SIZ", "DEX", "APP", "INT", "POW", "KNO", "LUC"]
@@ -84,17 +84,22 @@ class Character:
     @classmethod
     def load_from_db(cls, name ,owner):
         """从数据库中加载角色数据"""
-        data = player.query_by_owner_and_user(name, owner)
-        if data:
-            return cls(*data[0])
-        return None
+        try:
+            data = player.query_by_owner_and_user(name, owner)
+            if data:
+                return None,cls(*data[0])
+            return None,None
+        except Exception as e:
+            return str(e),None
 
     @classmethod
     def query_by_owner(cls, owner):
-        data=player.query_by_owner(owner)
-        if data:
-            return data
-        return None
+        try:
+            data=player.query_by_owner(owner)
+            data=[i[0] for i in data]
+            return None,data
+        except Exception as e:
+            return str(e),None
 
     @classmethod
     def generate_random_character(cls,name,owner):
